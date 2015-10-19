@@ -1,0 +1,159 @@
+#total-wrapper{
+	background-color: white;
+	width: 100%;
+	margin: auto;
+	max-width: 900px;
+	height: 620px;
+	position: relative;
+}
+
+#heading{
+	font-size: 2em;
+	text-align: center;
+	width: 100%;
+	margin: 20px 0px 10px 0px;
+	padding-top: 30px;
+}
+
+.square span{
+	line-height: 1.7em;
+	padding-left: 45px;
+	text-align: center;
+	font-size: 6em;
+	color: white;
+
+}
+
+
+#zero{
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 15%;
+	left: 23%;
+	border: 2px solid;
+	box-sizing: border-box;
+
+}
+
+#one{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 15%;
+	left: 41%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#two{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 15%;
+	left: 59%;
+	border: 2px solid;
+	box-sizing: border-box;
+
+}
+
+#three{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 41.1%;
+	left: 23%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#four{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 41.1%;
+	left: 41%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#five{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 41.1%;
+	left: 59%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#six{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 67.2%;
+	left: 23%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#seven{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 67.2%;
+	left: 41%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+#eight{
+	float: left;
+	width: 160px;
+	height: 160px;
+	background-color: blue;
+	position: absolute;
+	top: 67.2%;
+	left: 59%;
+	border: 2px solid;
+	box-sizing: border-box;
+}
+
+
+#start-game button{
+	position: absolute;
+	top: 50.5%;
+	left: 6.5%;
+	width: 10%;
+	height: 8%;
+	border-radius: 3px;
+	background-color: green;
+	color: white;
+	font-size: 12px;
+	}
+
+
+#message span{
+	position: absolute;
+	top: 50%;
+	left: 22.95%;
+	width: 53.8%;
+	text-align: center;
+	background: green;
+	font-size: 3em;
+}

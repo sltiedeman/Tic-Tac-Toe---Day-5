@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="scripts.js"></script>
+</head>
+<body>
+	
+<div id="total-wrapper">
+	<div id="heading">
+		Tic-Tac-Toe
+		</div>
+	<div id="zero" class="empty square" onclick="playGame(0,'zero')">
+		<span id="square-zero"></span>
+	</div>
+	<div id="one" class="empty square" onclick="playGame(1,'one')">
+		<span id="square-one"></span>
+	</div>
+	<div id="two" class="empty square" onclick="playGame(2,'two')">
+		<span id="square-two"></span>
+	</div>
+	<div id="three" class="empty square" onclick="playGame(3,'three')">
+		<span id="square-three"></span>	
+	</div>
+	<div id="four" class="empty square" onclick="playGame(4,'four')">
+		<span id="square-four"></span>
+	</div>
+	<div id="five" class="empty square" onclick="playGame(5,'five')">
+		<span id="square-five"></span>
+	</div>
+	<div id="six" class="empty square" onclick="playGame(6,'six')">
+		<span id="square-six"></span>
+	</div>
+	<div id="seven" class="empty square" onclick="playGame(7,'seven')">
+		<span id="square-seven"></span>
+	</div>
+	<div id="eight" class="empty square" onclick="playGame(8,'eight')">
+		<span id="square-eight"></span>
+	</div>
+
+	<div id="start-game">
+		<button id="start-game" onclick="boardReset()">Start Game</button>
+	</div>
+
+	<div id="message"><span id="winner-message"></span>
+	</div>
+
+</div>
+
+</body>
+</html>
