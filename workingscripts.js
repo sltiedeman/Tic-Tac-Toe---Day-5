@@ -1,19 +1,21 @@
 
-
+var tryToWin = false;
 var turnCount = 1;
 var board = [];
 var boardCount = 0; //insures board is only set one time;
 var spanArray = ["square-zero", "square-one", "square-two", "square-three", "square-four","square-five","square-six","square-seven","square-eight" ];
 var idArray = ["zero", "one", "two","three","four","five","six","seven","eight"];
+var winningArray = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
-function checkWin(someArray){
-	// Check Rows
-	var l = 0;
-	var m = 3;
+function checkWin(loopcountl, loopcountm, incrementValuei, incrementValuelm, someArray){
+
+	// Check Rows and Columns
+	var l = loopcountl;
+	var m = loopcountm;
 	for (a = 0; a < 3; a++){
 		var countX=0;
 		var countO=0;
-		for(i = l; i < m ; i++){
+		for(i = l; i < m ; i+=incrementValuei){
 			if(someArray[i]==='X'){
 				countX++;
 			}
@@ -26,36 +28,9 @@ function checkWin(someArray){
 			return("O Wins");
 			}
 		}
-		l+=3;
-		m+=3;
+		l+=incrementValuelm;
+		m+=incrementValuelm;
 	}
-
-	// Check Columns
-	l = 0;
-	m = 7;
-	for(a=0; a<3;a++){
-		var countX=0;
-		var countO=0;
-		for(i = l; i < m;i+=3){
-			if(someArray[i]==='X'){
-				countX++;
-			}
-			if(someArray[i]==='O'){
-				countO++;
-			}
-		if(countX===3){
-			return("X Wins");
-		}else if(countO===3){
-			return("O Wins");
-			}
-		}
-		l++;
-		m++;
-
-
-	}
-
-
 
 	// // //Check Diagonal heading down from top left to bottom right
 	var countX=0;
@@ -97,30 +72,321 @@ function setBoard(){
 	}
 }
 
-function computerTurn(){
-	var spaceEmpty = false;
-	while(spaceEmpty === false){
-		var checkSpace = Math.floor(Math.random()*9);
-		if(board[checkSpace]==='Z'){
-			board[checkSpace] = 'O';
-			var spanValue = spanArray[checkSpace];
+
+// function canComputerWin(){
+// 	var l = 0;
+// 	var m = 3;
+// 	for (a = 0; a < 3; a++){
+// 		var countO=0;
+// 		for(i = l; i < m ; i++){
+// 			if(board[i]==='O'){
+// 				countO++;
+// 			}else if(board[i] === 'O'){
+// 				var blankSpace = i;
+// 			}
+// 		}
+// 		if((countX===2) && (board[blankSpace]==='Z')){
+// 			board[blankSpace]='O';
+// 			var spanValue = spanArray[blankSpace];
+// 			document.getElementById(spanValue).innerHTML = "O";
+// 			document.getElementById(idArray[blankSpace]).onclick = null;
+// 			return true;	
+// 			break;
+// 		}
+// 		l+=3;
+// 		m+=3;
+
+
+// 	var l = 0;
+// 	var m = 7;
+// 	for (a = 0; a < 3; a++){
+// 		var countO=0;
+// 		for(i = l; i < m ; i+=3){
+// 			if(board[i]==='O'){
+// 				countO++;
+// 			}else if(board[i] === 'Z'){
+// 				var blankSpace = i;
+// 			}
+// 		}
+
+// 		if((countO===2) && (board[blankSpace]==='Z')){
+// 			if(limitComputerTurn===false){
+// 				board[blankSpace]='O';
+// 				var spanValue = spanArray[blankSpace];
+// 				document.getElementById(spanValue).innerHTML = "O";
+// 				document.getElementById(idArray[blankSpace]).onclick = null;
+// 				return true;
+// 				break;
+// 			}
+// 		}
+// 		l+=1;
+// 		m+=1;
+// 	}
+// 	return false;
+
+// }
+
+
+
+
+function computerBlock(){
+
+
+	//Code for Computer to block player's move
+
+	var countComputerReturn = 0;
+	var limitComputerTurn = false;
+	var l = 0;
+	var m = 3;
+	for (a = 0; a < 3; a++){
+		var countX=0;
+		for(i = l; i < m ; i++){
+			if(board[i]==='X'){
+				countX++;
+			}else if(board[i] === 'Z'){
+				var blankSpace = i;
+			}
+		}
+		if((countX===2) && (board[blankSpace]==='Z')){
+			board[blankSpace]='O';
+			var spanValue = spanArray[blankSpace];
 			document.getElementById(spanValue).innerHTML = "O";
-			spaceEmpty = true;
+			document.getElementById(idArray[blankSpace]).onclick = null;
+			limitComputerTurn = true;
+	
+			break;
+		}
+		l+=3;
+		m+=3;
+
+	}
+
+	if(limitComputerTurn === false){
+		var l = 0;
+		var m = 7;
+		for (a = 0; a < 3; a++){
+			var countX=0;
+			for(i = l; i < m ; i+=3){
+				if(board[i]==='X'){
+					countX++;
+				}else if(board[i] === 'Z'){
+					var blankSpace = i;
+				}
+			}
+
+			if((countX===2) && (board[blankSpace]==='Z')){
+				if(limitComputerTurn===false){
+					board[blankSpace]='O';
+					var spanValue = spanArray[blankSpace];
+					document.getElementById(spanValue).innerHTML = "O";
+					document.getElementById(idArray[blankSpace]).onclick = null;
+					limitComputerTurn=true;
+					break;
+				}
+			}
+			l+=1;
+			m+=1;
 		}
 	}
 
+	if(limitComputerTurn === false){
+		if(board[4]!='O'){
+			for (a = 0; a < 3; a++){
+				var countX=0;
+				for(i = 0; i < 9 ; i+=4){
+					if(board[i]==='X'){
+						countX++;
+					}else if(board[i] === 'Z'){
+						var blankSpace = i;
+					}
+				}
+				if((countX===2) && (board[blankSpace]==='Z')){
+					if(limitComputerTurn===false){
+						board[blankSpace]='O';
+						var spanValue = spanArray[blankSpace];
+						document.getElementById(spanValue).innerHTML = "O";
+						document.getElementById(idArray[blankSpace]).onclick = null;
+						limitComputerTurn=true;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+
+	if(limitComputerTurn === false){
+		if(board[4]!='O'){
+			for (a = 0; a < 3; a++){
+				var countX=0;
+				for(i = 2; i < 7 ; i+=2){
+					if(board[i]==='X'){
+						countX++;
+					}else if(board[i] === 'Z'){
+						var blankSpace = i;
+					}
+				}
+				if((countX===2) && (board[blankSpace]==='Z')){
+					if(limitComputerTurn===false){
+						board[blankSpace]='O';
+						var spanValue = spanArray[blankSpace];
+						document.getElementById(spanValue).innerHTML = "O";
+						document.getElementById(idArray[blankSpace]).onclick = null;
+						limitComputerTurn=true;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+//Computer trying to block a move where player has spaces in the corners
+	// if((board[0]==="X")&&(board[8]==="Z"))||((board[2]==="X")&&b(board[6]==="Z"))){
+	//		if(board[0]==="X"){
+	//			board[8]="O";
+	//
+	//		document.getElementById(spanArray[6]).innerHTML="O";
+	// 		spaceEmpty = true;
+	// 		limitComputerTurn = true;
+	// 		document.getElementById(idArray[6]).onclick = null;
+
+	//}
+	// 	if(board[6]==="Z"){
+	// 		board[6]="O";
+	// 		document.getElementById(spanArray[6]).innerHTML="O";
+	// 		spaceEmpty = true;
+	// 		limitComputerTurn = true;
+	// 		document.getElementById(idArray[6]).onclick = null;
+	// 	}else if(board[2]==="Z"){
+	// 		board[2]="O";
+	// 		document.getElementById(spanArray[6]).innerHTML="O";
+	// 		spaceEmpty = true;
+	// 		limitComputerTurn = true;
+	// 		document.getElementById(idArray[6]).onclick = null;
+	// 	}
+	// }
+
+	// if((board[2]==="X")&&(board[6]==="X")){
+	// 	if(board[6]==="Z"){
+	// 		board[8]="O";
+	// 		document.getElementById(spanArray[6]).innerHTML="O";
+	// 		spaceEmpty = true;
+	// 		limitComputerTurn = true;
+	// 		document.getElementById(idArray[6]).onclick = null;
+	// 	}else if(board[0]==="Z"){
+	// 		board[0]="O";
+	// 		document.getElementById(spanArray[6]).innerHTML="O";
+	// 		spaceEmpty = true;
+	// 		limitComputerTurn = true;
+	// 		document.getElementById(idArray[6]).onclick = null;
+	// 	}
+	// }
+	console.log("At the end of the page limitcomputerturnis " + limitComputerTurn);
+	return limitComputerTurn;
+	
+}
+
+
+function computerWin(){
+
+	var limitComputerTurn = false;
+	if(board[4]==="Z"){
+		board[4]="O";
+		document.getElementById(spanArray[4]).innerHTML = "O";
+		document.getElementById(idArray[4]).onclick = null;
+		limitComputerTurn = true;
+	}
+
+
+	if(limitComputerTurn === false){
+		var blankSpace;
+		var l = 0;
+		var m = 3;
+		for (a = 0; a < 3; a++){
+			var countZ=0;
+			var countO=0;
+			for(i = l; i < m ; i++){
+				if(board[i]==='O'){
+					countO++;
+					("Ocount is " + countO);
+				}
+				if((board[i]==='Z')||(board[i]==='O')){
+					countZ++;
+					if(board[i]=='Z'){
+						blankSpace = i;
+					}
+				}
+			}
+
+			if((countZ===3) && (countO > 0)){
+				board[blankSpace]='O';
+				var spanValue = spanArray[blankSpace];
+				document.getElementById(spanValue).innerHTML = "O";
+				document.getElementById(idArray[blankSpace]).onclick = null;
+				limitComputerTurn = true;
+				break;
+			}
+		l+=3;
+		m+=3;
+		}
+	}
+	if(limitComputerTurn === false){
+		var l = 0;
+		var m = 7;
+		for (a = 0; a < 3; a++){
+			var countZ=0;
+			var countO=0;
+			for(i = l; i < m ; i+=3){
+				if(board[i]==='O'){
+					countO++;
+					("Ocount is " + countO);
+				}
+				if((board[i]==='Z')||(board[i]==='O')){
+					countZ++;
+					if(board[i]=='Z'){
+						blankSpace = i;
+					}
+				}
+			}
+
+			if((countZ===3) && (countO > 0)){
+				board[blankSpace]='O';
+				var spanValue = spanArray[blankSpace];
+				document.getElementById(spanValue).innerHTML = "O";
+				document.getElementById(idArray[blankSpace]).onclick = null;
+				limitComputerTurn = true;
+				break;
+			}
+		l+=1;
+		m+=1;
+		}
+	}
+	console.log("limitcomputer turn is " + limitComputerTurn);
+	if(limitComputerTurn === false){
+		var spaceEmpty = false;
+		while(spaceEmpty === false){
+			var checkSpace = Math.floor(Math.random()*9);
+			if(board[checkSpace]==='Z'){
+				board[checkSpace] = 'O';
+				var spanValue = spanArray[checkSpace];
+				document.getElementById(spanValue).innerHTML = "O";
+				spaceEmpty = true;
+			}
+	}
 	var getId = idArray[checkSpace];
 	document.getElementById(getId).onclick = null;
-	// document.getElementById(checkSpace).id;
-	// checkWin(board);
+	}
+
+
 }
+
+
 
 
 function disableButtons(){
 	for(i=0;i<9;i++){
 		if(board[i]='Z'){
 			document.getElementById(idArray[i]).onclick = "";
-			console.log(idArray[i]);
 		}
 	}
 
@@ -130,18 +396,18 @@ function disableButtons(){
 
 
 function seeWhoWon(someArray){
-	var checkForWin = checkWin(board);
-	var winner = true;
+	var checkForWin
+	checkForWin = checkWin(0, 7, 3, 1, board);
+	if((checkForWin!= "X Wins") && (checkForWin != "O Wins")){
+		checkForWin = checkWin(0, 3, 1, 3, board);
+	}
 	if(checkForWin==="X Wins"){
 		document.getElementById("winner-message").innerHTML = "You Win";
-		winner = true;
-		console.log("winner is " + winner);
 		disableButtons();
-		return(winner);
+		return(true);
 	}else if(checkForWin==="O Wins"){
-		document.getElementById("winner-message").innerHTML = "Computer Wins";
-		winner = true;
-		return(winner);
+		document.getElementById("winner-message").innerHTML = "You Lose";
+		return(true);
 	}
 
 }
@@ -152,6 +418,7 @@ function playGame(number, id){
 		setBoard();
 	 	boardCount++;
 	 }
+
 	// var playerSquare = document.getElementById(id);
 	if(board[number]==="Z"){
 		var playerSquare = "square-" + id;
@@ -159,21 +426,26 @@ function playGame(number, id){
 		document.getElementById(id).onclick = "";
 		board[number]="X";
 	}
+
 	
 	var newWinner = seeWhoWon(board);
 	turnCount++;
 
-	if((turnCount < 9)&&(newWinner != true)){
-		computerTurn();
-		turnCount++;
-		checkWin(board);
-		seeWhoWon(board);
-		console.log("new winner is" + newWinner + "turn Count " + turnCount);
 
+	if((turnCount < 9)&&(newWinner != true)){
+		var tryToWin2 = computerBlock();
+		if(tryToWin2 != true){
+			computerWin();
+		}
+		turnCount++;
+		checkWin(0, 3, 1, 3, board);
+		checkWin(0, 7, 3, 1, board);
+		seeWhoWon(board);
 	}
 	if((turnCount === 10)&&(newWinner != true)){
 		document.getElementById("winner-message").innerHTML = "The game is a tie.";
 	}		
+
 }
 
 
@@ -184,6 +456,10 @@ function playGame(number, id){
 		document.getElementById(getSpanArray).innerHTML = "";
 	}
 	document.getElementById("winner-message").innerHTML = "";
+
+	// for(i=0; i<9;i++){
+	// 	document.getElementById(idArray[i]).onclick = function(){playGame(i, idArray[i])};
+	// }
 	document.getElementById("zero").onclick = function(){playGame(0, "zero")};
 	document.getElementById("one").onclick = function(){playGame(1, "one")};
 	document.getElementById("two").onclick = function(){playGame(2, "two")};
